@@ -1,9 +1,47 @@
 from typing import List
 
-def quick_sort(data, low, high) -> List[int]:
-    # Write code here
+def merge_sort(myList) -> None:
+  if len(myList) > 1:
+        mid = len(myList) // 2
+        left = myList[:mid]
+        right = myList[mid:]
+
+        # Recursive call on each half
+        merge_sort(left)
+        merge_sort(right)
+
+        # Two iterators for traversing the two halves
+        i = 0
+        j = 0
+       
+        # Iterator for the main list
+        k = 0
+       
+        while i < len(left) and j < len(right):
+            if left[i] <= right[j]:
+              # The value from the left half has been used
+              myList[k] = left[i]
+              # Move the iterator forward
+              i += 1
+            else:
+                myList[k] = right[j]
+                j += 1
+            # Move to the next slot
+            k += 1
+
+        # For all the remaining values
+        while i < len(left):
+            myList[k] = left[i]
+            i += 1
+            k += 1
+
+        while j < len(right):
+            myList[k]=right[j]
+            j += 1
+            k += 1
 
 
+# Do not change the following code
 input_data = input()
 data = []
 for item in input_data.split(', '):
@@ -11,4 +49,5 @@ for item in input_data.split(', '):
     data.append(int(item))
   elif item.lstrip("-").isnumeric():
     data.append(int(item))
-print(quick_sort(data, 0, len(data)-1))
+merge_sort(data)
+print(data)
